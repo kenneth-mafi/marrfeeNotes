@@ -21,11 +21,7 @@ def time():
 
 @api.get("/active-notes")
 def get_active_notes():
-    data = request.get_json(silent=True)
-    if not isinstance(data, dict):
-        return jsonify({"success": False, "error": "Expected JSON object"}), 400
-    
-    user_id = data.get("user_id")
+    user_id = request.args.get("user_id")
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
@@ -37,11 +33,7 @@ def get_active_notes():
 
 @api.get("/deleted-notes")
 def get_deleted_notes():
-    data = request.get_json(silent=True)
-    if not isinstance(data, dict):
-        return jsonify({"success": False, "error": "Expected JSON object"}), 400
-    
-    user_id = data.get("user_id")
+    user_id = request.args.get("user_id")
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
