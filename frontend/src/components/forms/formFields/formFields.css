@@ -1,11 +1,11 @@
-.digId-input-wrapper{
+﻿.input-wrapper{
   width: 100%;
   gap: 0.2rem;
   display: flex;
   flex-direction: column;
 }
 
-.digId-input-field{
+.input-field{
   display: block;
   width: 100%;
   font-size: 1rem;
@@ -16,19 +16,19 @@
   background-color: rgb(232, 232, 232);
 }
 
-.digId-input-feild:focus {
+.input-feild:focus {
   outline: none;
   border-color: #06294e; 
   box-shadow: 0 0 0 3px rgba(43,108,176,0.08);
 }
 
-.digId-form-label{
+.form-label{
   font-size: 0.8rem;
   font-weight: 500;
 }
 
 
-.digId-error-text{
+.error-text{
   font-size: 0.65rem;
   color: rgb(227, 7, 7);
   font-weight: 500;
@@ -43,7 +43,7 @@
   100% { transform: translateX(0); }
 }
 
-.digId-error-field{
+.error-field{
   border: 1.3px solid #ff0015 !important;
   outline: none;
   animation: shake 0.25s ease-in-out;

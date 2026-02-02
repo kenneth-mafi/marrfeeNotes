@@ -1,4 +1,4 @@
-import './logInPage.css';
+﻿import './logInPage.css';
 import { getLogInForm } from './logInForm';
 import { useNavigate } from 'react-router-dom';
 import MainPageFrame from '../../components/Frames/PageFrames/mainPageFrame/MainPageFrame';
@@ -33,7 +33,7 @@ const LogInPage = () => {
     const formContent = getLogInForm(submit);
 
     const pageContent = [
-        { Component: PageTitle, props: {title: "Sign in"}},
+        { Component: PageTitle, props: {title: "Sign in", subtitle: "Welcome back to your notebook."}},
         {
             Component: FormTemplate,
             props: { formContent }
@@ -43,14 +43,15 @@ const LogInPage = () => {
             props: {
                 title: "Don't have an account?",
                 link: "Register",
-                to: "/registrationPage"
+                to: "/register"
             }
         }
     ]
 
   return (
-    <MainPageFrame components={pageContent} className="digId-log-in-page" />
+    <MainPageFrame components={pageContent} className="log-in-page" effect='slideInLeft'/>
   );
 }
 
 export default LogInPage;
+

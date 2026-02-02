@@ -1,4 +1,4 @@
-import './formTemplate.css';
+﻿import './formTemplate.css';
 import { useState } from "react";
 
 function FormTemplate({ formContent = {}, comparePin=false }) {
@@ -116,7 +116,7 @@ function FormTemplate({ formContent = {}, comparePin=false }) {
   const ButtonComponent = formContent.buttonData.Component;
 
   return (
-    <form onSubmit={handleSubmit} className="digId-form">
+    <form onSubmit={handleSubmit} className="form">
 
       {(formContent.fields || []).map(field => {
         const Component = field.Component;
@@ -135,7 +135,7 @@ function FormTemplate({ formContent = {}, comparePin=false }) {
       })}
   
       {formContent.buttonData.Component && <ButtonComponent
-        className={`digId-form-submit-btn`}
+        className={`form-submit-btn`}
         {...formContent.buttonData}
         disabled={Object.keys(errors).length > 0 || invalidCount >=3}
       />}
@@ -146,3 +146,4 @@ function FormTemplate({ formContent = {}, comparePin=false }) {
 }
 
 export default FormTemplate;
+

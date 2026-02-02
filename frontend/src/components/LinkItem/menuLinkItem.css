@@ -1,4 +1,4 @@
-.digId-menu-link-item{
+﻿.menu-link-item{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -9,34 +9,34 @@
     color: black;
 }
 
-.digId-menu-link-left{
+.menu-link-left{
     display: flex;
     align-items: center;
     gap: 0.6rem;
 }
 
-.digId-menu-link-left-icon{
+.menu-link-left-icon{
     width: 20px;
     height: 20px;
     object-fit: contain;
 }
 
-.digId-menu-link-label{
+.menu-link-label{
     font-size: 0.9rem;
     font-weight: 500;
 }
 
-.digId-menu-link-right{
+.menu-link-right{
     display: flex;
     align-items: center;
 }
 
-.digId-menu-link-right-icon{
+.menu-link-right-icon{
     width: 14px;
     height: 14px;
     object-fit: contain;
 }
 
-.digId-menu-link-item:hover{
+.menu-link-item:hover{
     background-color: #f7f7f7;
 }

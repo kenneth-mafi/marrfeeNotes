@@ -6,7 +6,7 @@ export function getLogInForm(func) {
     const formContent = {
       
       default: [
-      { name: "email", value: "" },
+      { name: "username", value: "" },
       { name: "password", value: "" },
     ],
 
@@ -19,7 +19,7 @@ export function getLogInForm(func) {
         {
           Component: InputField,
           props: {
-            type: "username",
+            type: "text",
             name: "username",
             label: "Username *",
             placeholder: "Enter username",

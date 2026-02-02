@@ -1,4 +1,4 @@
-import './formFields.css';
+﻿import './formFields.css';
 
 function InputField({ type, label, name, placeholder, id, value, onChange, error, readOnly=false }) {
     
@@ -7,8 +7,8 @@ function InputField({ type, label, name, placeholder, id, value, onChange, error
     const inputId = id || name
 
     return (
-      <div className={`digId-input-wrapper`}>
-        <label htmlFor={inputId} className={`digId-form-label`}>
+      <div className={`input-wrapper`}>
+        <label htmlFor={inputId} className={`form-label`}>
           {label}
         </label>
         <input 
@@ -16,12 +16,12 @@ function InputField({ type, label, name, placeholder, id, value, onChange, error
             name={name}
             placeholder={placeholder}
             id={inputId}
-            className={`digId-input-field ${error ? "digId-error-field" : ""}`} 
+            className={`input-field ${error ? "error-field" : ""}`} 
             value={value}
             onChange={(e) => onChange(e.target.value)}
             readOnly={readOnly}
         />    
-        {error && <p className='digId-error-text'>{error}</p>}
+        {error && <p className='error-text'>{error}</p>}
       </div>
 
     )
