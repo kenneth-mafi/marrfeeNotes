@@ -3,9 +3,9 @@ import heartIcon from '../../../assets/heart.png'
 import heartFilledIcon from '../../../assets/heart-filled.png'
 import { useState } from 'react';
 
-export const IconButton = ({ icon, onClick }) => {
+export const IconButton = ({ icon, onClick, className }) => {
   return (
-    <button type="button" onClick={onClick} className="icon-button">
+    <button type="button" onClick={onClick} className={`icon-button`}>
       <img src={icon} alt="button" className="icon-button-icon" />
     </button>
   )

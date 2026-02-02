@@ -1,7 +1,6 @@
 import './grid.css';
 
 export function ColumnGrid({ items = [], Component }) {
-  console.log(items);
   
   return (
 

@@ -47,7 +47,7 @@
     0 12px 24px rgba(0,0,0,0.06);
 }
 
-/* Title */
+
 .note-title {
   font-size: 1rem;
   font-weight: 600;
@@ -55,24 +55,24 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: normal;
 }
 
-/* Preview text */
+
 .note-preview {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1;
   color: #555;
-
+  line-height: normal;
   /* Limit to 1 line */
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-
   overflow: hidden;
 }
 
-/* Meta row */
+
 .note-meta {
   margin-top: 0.4rem;
   display: flex;

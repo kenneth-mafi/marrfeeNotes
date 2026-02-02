@@ -1,0 +1,24 @@
+.search-box-contr{
+    position: relative;
+}
+
+.search-box{
+    width: 250px;
+    padding: 0.3rem 0.5rem;
+    border-radius: 25px;
+    border: 1px solid #c8c7c7;
+    outline: none;
+}
+
+.search-box:focus{
+    outline: 1px solid black;
+}
+
+.search-icon{
+    position: absolute;
+    width: 0.9rem;
+    height: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+}

@@ -5,3 +5,24 @@
     width: 100%;
     height: 100%;
 }
+
+.folders-page, .notes-page {
+  position: relative;
+}
+
+/* Background image layer */
+.folders-page::after, .notes-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url("./src/assets/notes.png");
+  background-repeat: no-repeat;
+  background-size: 280px auto;
+  background-position: right bottom;
+
+  opacity: 0.25;        /* 👈 fade strength */
+
+  pointer-events: none;
+}
+

@@ -7,6 +7,7 @@ import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPag
 
 export default function NoteEditorPage() {
   const { id } = useParams();
+  
 
   const note = useMemo(() => {
     if (id === "new") return null;
@@ -15,9 +16,9 @@ export default function NoteEditorPage() {
 
   const [title, setTitle] = useState(note?.title || "");
   const [body, setBody] = useState(note?.body || "");
-  
+
   const pageContent = [
-    { Component: SubHeader },
+    { Component: SubHeader, props: {back: true} },
     { Component: Notepad, 
       props: { title: title, setTitle: setTitle, body: body, setBody: setBody }
     }
