@@ -2,6 +2,8 @@ from flask import Flask
 from flask_cors import CORS
 from apscheduler.schedulers.background import BackgroundScheduler
 from .task import purge_old_deleted_notes
+from flask_jwt_extended import JWTManager
+import os
 
 def start_scheduler():
     scheduler = BackgroundScheduler(timezone="Europe/Stockholm")
@@ -17,6 +19,9 @@ def create_app():
     
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY", "dev-change-me")
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 60 * 60
+    JWTManager(app)
 
     CORS(app, origins=[
         "http://localhost:5173", 

@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, request
 import json
-import bcrypt
 import uuid
 from .db import execute_sql
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import bcrypt
 
 api = Blueprint('api', __name__)
 
@@ -20,20 +21,22 @@ def time():
 
 
 @api.get("/active-notes")
+@jwt_required()
 def get_active_notes():
-    user_id = request.args.get("user_id")
+    user_id = get_jwt_identity()
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
     sql = "SELECT * FROM notes.notes WHERE user_id = %s AND deleted_at IS NULL ORDER BY updated_at DESC"
     rows = execute_sql(sql, (user_id,))
-    return jsonify({"success": True, "rows": rows})
+    return jsonify({"success": True, "rows": rows}), 200
 
 
 
 @api.get("/deleted-notes")
+@jwt_required()
 def get_deleted_notes():
-    user_id = request.args.get("user_id")
+    user_id = get_jwt_identity()
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
@@ -42,37 +45,6 @@ def get_deleted_notes():
     return jsonify({"success": True, "rows": rows})
 
 
-@api.post("/register")
-def register():
-    data = request.get_json(silent=True)
-    if not isinstance(data, dict):
-        return jsonify({"success": False, "error": "Expected JSON object"}), 400
-
-    required_keys = ["email", "username", "password"]
-    missing = [k for k in required_keys if not data.get(k)]
-    if missing:
-        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
-
-    user_id = str(uuid.uuid4())
-
-    email = data["email"].strip().lower()
-    username = data["username"].strip()
-    password = data["password"]
-
-    password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-
-    sql = """
-        INSERT INTO notes.users (user_id, email, username, password_hash)
-        VALUES (%s, %s, %s, %s)
-    """
-    params = (user_id, email, username, password_hash)
-
-    try:
-        execute_sql(sql, params, fetch=None)
-        return jsonify({"success": True, "user_id": user_id}), 201
-    except Exception as e:
-        # Ideally catch unique-constraint violation specifically
-        return jsonify({"success": False, "error": "Could not register user"}), 400
 
 @api.post("/notes")
 def create_note():
@@ -106,18 +78,16 @@ def create_note():
 
 
 @api.delete("/delete-temp")
+@jwt_required()
 def soft_delete_note():
+    user_id = get_jwt_identity()
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"success": False, "error": "Expected JSON object"}), 400
 
-    required_keys = ["user_id", "note_id"]
-    missing = [k for k in required_keys if not data.get(k)]
-    if missing:
-        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
-
-    user_id = data["user_id"]
-    note_id = data["note_id"]
+    note_id = data.get("note_id")
+    if not note_id:
+        return jsonify({"success": False, "error": "Missing note_id"}), 400
 
     sql = """
         UPDATE notes.notes
@@ -137,18 +107,16 @@ def soft_delete_note():
 
 
 @api.delete("/delete")
+@jwt_required()
 def hard_delete_note():
+    user_id = get_jwt_identity()
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"success": False, "error": "Expected JSON object"}), 400
 
-    required_keys = ["user_id", "note_id"]
-    missing = [k for k in required_keys if not data.get(k)]
-    if missing:
-        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
-
-    user_id = data["user_id"]
-    note_id = data["note_id"]
+    note_id = data.get("note_id")
+    if not note_id:
+        return jsonify({"success": False, "error": "Missing note_id"}), 400
 
     sql = """
         DELETE FROM notes.notes
@@ -165,19 +133,19 @@ def hard_delete_note():
     except Exception:
         return jsonify({"success": False, "error": "Could not permanently delete note"}), 400
 
+
 @api.patch("/restore")
+@jwt_required()
 def restore_note():
+    user_id = get_jwt_identity()
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"success": False, "error": "Expected JSON object"}), 400
 
-    required_keys = ["user_id", "note_id"]
-    missing = [k for k in required_keys if not data.get(k)]
-    if missing:
-        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
+    note_id = data.get("note_id")
+    if not note_id:
+        return jsonify({"success": False, "error": "Missing note_id"}), 400
 
-    user_id = data["user_id"]
-    note_id = data["note_id"]
 
     sql = """
         UPDATE notes.notes
@@ -198,18 +166,16 @@ def restore_note():
     
 
 @api.patch("/notes")
+@jwt_required()
 def update_note():
+    user_id = get_jwt_identity()
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"success": False, "error": "Expected JSON object"}), 400
 
-    required_keys = ["user_id", "note_id"]
-    missing = [k for k in required_keys if not data.get(k)]
-    if missing:
-        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
-
-    user_id = data["user_id"]
-    note_id = data["note_id"]
+    note_id = data.get("note_id")
+    if not note_id:
+        return jsonify({"success": False, "error": "Missing note_id"}), 400
 
     # allow partial updates
     title = data.get("title")
@@ -246,3 +212,70 @@ def update_note():
         return jsonify({"success": True, "note_id": row[0]}), 200
     except Exception:
         return jsonify({"success": False, "error": "Could not update note"}), 400
+
+
+
+
+@api.post("/register")
+def register():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"success": False, "error": "Expected JSON object"}), 400
+
+    required_keys = ["email", "username", "password"]
+    missing = [k for k in required_keys if not data.get(k)]
+    if missing:
+        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
+
+    user_id = str(uuid.uuid4())
+
+    email = data["email"].strip().lower()
+    username = data["username"].strip()
+    password = data["password"]
+
+    password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+    sql = """
+        INSERT INTO notes.users (user_id, email, username, password_hash)
+        VALUES (%s, %s, %s, %s)
+    """
+    params = (user_id, email, username, password_hash)
+
+    try:
+        execute_sql(sql, params, fetch=None)
+        return jsonify({"success": True, "user_id": user_id}), 201
+    except Exception as e:
+        # Ideally catch unique-constraint violation specifically
+        return jsonify({"success": False, "error": "Could not register user"}), 400
+
+
+
+@api.post("/login")
+def login():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"success": False, "error": "Expected JSON object"}), 400
+
+    username = (data.get("username") or "").strip().lower()
+    password = data.get("password") or ""
+
+    if not username or not password:
+        return jsonify({"success": False, "error": "Missing email or password"}), 400
+
+    # Get user by username
+    sql = "SELECT user_id, password_hash FROM notes.users WHERE email = %s"
+    row = execute_sql(sql, (username,), fetch="one")
+    if not row:
+        return jsonify({"success": False, "error": "Invalid credentials"}), 401
+
+    user_id, password_hash = row[0], row[1]
+
+    # bcrypt needs bytes
+    ok = bcrypt.checkpw(password.encode("utf-8"), password_hash.encode("utf-8"))
+    if not ok:
+        return jsonify({"success": False, "error": "Invalid credentials"}), 401
+
+    # Put user_id inside the token as the identity
+    access_token = create_access_token(identity=str(user_id))
+
+    return jsonify({"success": True, "access_token": access_token}), 200
