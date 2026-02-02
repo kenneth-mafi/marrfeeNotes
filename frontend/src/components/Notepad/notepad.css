@@ -1,0 +1,28 @@
+.note-pad-contr{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.notepad-title-area{
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 1rem 1rem 0.4rem;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.notepad-body-area, .notepad-title-area{
+    width: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    border: none;
+    outline: none;
+}
+
+
+.notepad-body-area{
+    height: 100%;
+    padding: 1rem 1rem 3rem;
+    font-size: 1.1rem;
+}

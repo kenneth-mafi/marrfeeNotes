@@ -1,0 +1,64 @@
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+
+  padding: 8px 12px;
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #333;
+
+  backdrop-filter: blur(4px);
+
+  transition:
+    background-color 0.15s ease,
+    transform 0.08s ease,
+    opacity 0.15s ease;
+}
+
+/* Icon inside button */
+.icon-button-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform 0.15s ease;
+}
+
+/* Text button modifier */
+.icon-button-text {
+  padding: 8px 16px;
+}
+
+/* Hover */
+.icon-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Press feedback */
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+.icon-button:active .icon-button-icon {
+  transform: scale(1.2);
+}
+
+/* Disabled */
+.icon-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Like button extras */
+.like-button.liked .icon-button-icon {
+  transform: scale(1.15);
+}

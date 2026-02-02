@@ -1,0 +1,25 @@
+.subheader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 5rem;
+}
+
+/* Left container */
+.subheader-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Right container */
+.subheader-right {
+  display: flex;
+  align-items: center;
+}
