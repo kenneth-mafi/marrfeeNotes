@@ -1,0 +1,11 @@
+.digId-log-in-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding-bottom: 3rem;
+}

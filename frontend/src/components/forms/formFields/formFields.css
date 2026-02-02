@@ -1,0 +1,51 @@
+.digId-input-wrapper{
+  width: 100%;
+  gap: 0.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.digId-input-field{
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: rgb(232, 232, 232);
+}
+
+.digId-input-feild:focus {
+  outline: none;
+  border-color: #06294e; 
+  box-shadow: 0 0 0 3px rgba(43,108,176,0.08);
+}
+
+.digId-form-label{
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+
+.digId-error-text{
+  font-size: 0.65rem;
+  color: rgb(227, 7, 7);
+  font-weight: 500;
+}
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-4px); }
+  40%  { transform: translateX(4px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+.digId-error-field{
+  border: 1.3px solid #ff0015 !important;
+  outline: none;
+  animation: shake 0.25s ease-in-out;
+  box-shadow: 0 0 0 2px rgba(239, 86, 99, 0.25);
+}
