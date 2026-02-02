@@ -21,4 +21,16 @@
 .button-img{
   width: 1rem;
   height: auto;
+  animation: infiniteRotate 1s linear infinite;
 }
+
+@keyframes infiniteRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+

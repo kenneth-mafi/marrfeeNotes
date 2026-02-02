@@ -101,7 +101,6 @@ function FormTemplate({ formContent = {}, comparePin=false }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     
     if (!validateRegistration()) return;
 

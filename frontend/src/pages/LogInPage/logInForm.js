@@ -3,6 +3,7 @@ import InputField from "../../components/forms/formFields/InputField";
 
 
 export function getLogInForm(func) {
+  
     const formContent = {
       
       default: [
@@ -11,7 +12,7 @@ export function getLogInForm(func) {
     ],
 
     validation: {
-      email: { required: true },
+      username: { required: true },
       password: { required: true }
     },
 

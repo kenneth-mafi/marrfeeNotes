@@ -243,10 +243,11 @@ def register():
 
     try:
         execute_sql(sql, params, fetch=None)
-        return jsonify({"success": True, "user_id": user_id}), 201
+        access_token = create_access_token(identity=user_id)
+        return jsonify({ "success": True, "access_token": access_token }), 201
     except Exception as e:
         # Ideally catch unique-constraint violation specifically
-        return jsonify({"success": False, "error": "Could not register user"}), 400
+        return jsonify({"success": False, "error": "Could not register user", "e": e}), 400
 
 
 
@@ -256,14 +257,14 @@ def login():
     if not isinstance(data, dict):
         return jsonify({"success": False, "error": "Expected JSON object"}), 400
 
-    username = (data.get("username") or "").strip().lower()
-    password = data.get("password") or ""
+    username = data.get("username").strip().lower()
+    password = data.get("password")
 
     if not username or not password:
-        return jsonify({"success": False, "error": "Missing email or password"}), 400
+        return jsonify({"success": False, "error": "Missing username or password"}), 400
 
     # Get user by username
-    sql = "SELECT user_id, password_hash FROM notes.users WHERE email = %s"
+    sql = "SELECT user_id, password_hash FROM notes.users WHERE username = %s"
     row = execute_sql(sql, (username,), fetch="one")
     if not row:
         return jsonify({"success": False, "error": "Invalid credentials"}), 401

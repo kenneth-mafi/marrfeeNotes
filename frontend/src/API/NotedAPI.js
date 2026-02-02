@@ -1,12 +1,15 @@
 const BackendAPI = (import.meta.env.VITE_NOTED_API_URL || "http://localhost:5000").replace(/\/$/, "");
 
-const sendAPIRequest = async ( endPoint, dataObj={}, method="GET" ) => {
+const sendAPIRequest = async ( endPoint, dataObj={}, method="GET", token="" ) => {
     if (!endPoint) return { success: false, error: "No endpoint" };
 
     const cleanEndPoint = String(endPoint).replace(/^\/+/, "");
     const reqObj = {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+            "Content-Type": "application/json" ,
+            "Authorization": `Bearer ${token}`
+        },
         body: method === "GET" ? undefined : JSON.stringify(dataObj),
     };
 
@@ -18,7 +21,7 @@ const sendAPIRequest = async ( endPoint, dataObj={}, method="GET" ) => {
          json = text ? JSON.parse(text) : {}; 
     } catch (error) {
          json = { success: false, error: text }; 
-         print(error)
+         console.log(error);
     }
 
     if (!res.ok) {

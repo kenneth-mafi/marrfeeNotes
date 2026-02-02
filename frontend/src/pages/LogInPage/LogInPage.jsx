@@ -5,29 +5,15 @@ import MainPageFrame from '../../components/Frames/PageFrames/mainPageFrame/Main
 import Label from '../../components/Labels/Label';
 import FormTemplate from '../../components/forms/formTemplate/FormTemplate';
 import PageTitle from '../../components/PageTitle/PageTitle';
+import { useNoteContext } from '../../hooks/useContext';
 
 const LogInPage = () => {
     const navigate = useNavigate();
-    const proceed = () => {
-        navigate("/homePage");
-    };
-
+    const { login } = useNoteContext();
+    
     const submit = async ( formData ) => {
-
-        console.log(formData);
-        console.log("LOGIN USER DATA: ", userData);
-        
-        formData["userID"] = userData?.userID;
-        console.log("LOGIN FORM DATA: ",formData);
-        
-        const data = await sendRequest( formData, 'login' );
-        console.log("LOGIN FROM BACKEND: ", data);
-        console.log("LOGIN FROM BACKEND: ", data?.success);
-        console.log("LOGIN FROM BACKEND: ", data?.userData);
-        if (data?.success){
-            proceed()
-        }
-        else return false; 
+        const ok = await login( formData )
+        if (ok) { navigate("/folders")}
     };
 
     const formContent = getLogInForm(submit);
