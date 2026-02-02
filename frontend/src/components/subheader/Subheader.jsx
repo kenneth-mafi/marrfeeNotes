@@ -8,7 +8,10 @@ import filterIcon from '../../assets/filters.png';
 
 export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", onLike, onClick, onSearch, filter=false }) => {
   const navigate = useNavigate()
-  const goBack = () => { navigate(-1) }
+  const goBack = () => { 
+    navigate(-1) 
+    if (onSave) onSave();
+  }
   return (
     <div className="subheader">
 

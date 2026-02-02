@@ -47,20 +47,16 @@ def get_deleted_notes():
 
 
 @api.post("/notes")
+@jwt_required()
 def create_note():
+    user_id = get_jwt_identity()
     data = request.get_json(silent=True)
     if not isinstance(data, dict):
         return jsonify({"success": False, "error": "Expected JSON object"}), 400
 
-    required_keys = ["user_id", "title", "body"]
-    missing = [k for k in required_keys if data.get(k) is None]
-    if missing:
-        return jsonify({"success": False, "error": "Missing required fields", "missing": missing}), 400
-
     note_id = str(uuid.uuid4())
-    user_id = data["user_id"]
-    title = data["title"]
-    body = data["body"]
+    title = data.get("title", "")
+    body = data.get("body", "")
 
     sql = """
         INSERT INTO notes.notes (note_id, user_id, title, body, created_at, updated_at, deleted_at)
@@ -98,7 +94,7 @@ def soft_delete_note():
     params = (user_id, note_id)
 
     try:
-        res = execute_sql(sql, params, fetch="one")  # adjust to your helper
+        res = execute_sql(sql, params, fetch="one")
         if not res:
             return jsonify({"success": False, "error": "Note not found (or already deleted)"}), 404
         return jsonify({"success": True}), 200

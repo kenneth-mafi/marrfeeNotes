@@ -4,12 +4,13 @@ const sendAPIRequest = async ( endPoint, dataObj={}, method="GET", token="" ) =>
     if (!endPoint) return { success: false, error: "No endpoint" };
 
     const cleanEndPoint = String(endPoint).replace(/^\/+/, "");
+
+    const headers = { "Content-Type": "application/json" };
+    if (token) headers.Authorization = `Bearer ${token}`;
+
     const reqObj = {
         method,
-        headers: { 
-            "Content-Type": "application/json" ,
-            "Authorization": `Bearer ${token}`
-        },
+        headers,
         body: method === "GET" ? undefined : JSON.stringify(dataObj),
     };
 

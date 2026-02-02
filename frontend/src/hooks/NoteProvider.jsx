@@ -9,21 +9,7 @@ const NoteProvider = ({ children }) => {
     const [ showAlert, setShowAlert ] = useState(false);
     const [ alertInfo, setAlertInfo ] = useState({error: false, message: ""})
     const [ isVerifying, setIsVerifying ] = useState(false)
-    // const getHealth = async () => {
-    //     const res = await sendAPIRequest("health")
-    //     console.log(res);
-    // }
 
-    // const getTime = async () => {
-    //     const res = await sendAPIRequest("time")
-    //     console.log(res);
-        
-    // }
-    
-    // useEffect(() => {
-    //     getHealth()
-    //     getTime()
-    // }, [])
 
     const saveToken = (token) => {
         if (!token) return;
@@ -82,6 +68,27 @@ const NoteProvider = ({ children }) => {
 
     }
 
+    const fetchNotes = async () => {
+        const access_token = localStorage.getItem("access_token")
+        const res = await sendAPIRequest("active-notes", {}, "GET", access_token);
+        if (!res?.success) { 
+            console.log(res.error);
+            return [];
+        }
+        // return res?.rows
+        console.log(res.rows);
+    }
+
+    const createNote = async ( noteData ) => {
+        const access_token = localStorage.getItem("access_token")
+        const res = await sendAPIRequest("notes", noteData, "POST", access_token);
+        if (!res?.success) { 
+            console.log(res.error);
+            return;
+        }
+        return res?.note_id       
+    }
+
     
     return(
         <NoteContext.Provider 
@@ -90,7 +97,8 @@ const NoteProvider = ({ children }) => {
                 alertInfo,
                 register,
                 login,
-                isVerifying
+                isVerifying,
+                createNote
             }}
         >
             {children}
