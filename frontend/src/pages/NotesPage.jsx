@@ -15,7 +15,7 @@ export default function NotesPage({ deleted = false }) {
   );
 
   const pageContent = [
-    { Component: SubHeader, props: {back: true, onSearch: "s"} },
+    { Component: SubHeader, props: {back: true, onSearch: "s", filter: true } },
     { Component: PageTitle, 
       props: { 
         title: deleted ? "Recently Deleted" : "Notes",

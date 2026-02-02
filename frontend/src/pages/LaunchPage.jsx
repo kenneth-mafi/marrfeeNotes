@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LaunchHero from "../components/LaunchHero/LaunchHero";
 import './styles.css'
-import heroImg from '../assets/notepad.png'
+import heroImg from '../assets/notes.png'
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";
 
 

@@ -4,7 +4,9 @@ import "./subheader.css";
 import { useNavigate } from "react-router-dom";
 import userIcon from '../../assets/user.png'
 import SearchBar from "../searchBar/SearchBar";
-export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", onLike, onClick, onSearch }) => {
+import filterIcon from '../../assets/filters.png';
+
+export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", onLike, onClick, onSearch, filter=false }) => {
   const navigate = useNavigate()
   const goBack = () => { navigate(-1) }
   return (
@@ -20,7 +22,8 @@ export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", on
         {isWriting && <TextButton text={actionText} onClick={onSave} />}
         {onLike && <LikeButton onClick={onLike} />}
         {onSearch && <SearchBar />}
-        {!onLike && <IconButton onClick={onClick} icon={userIcon}/>}
+        {!onLike && !filter && <IconButton onClick={onClick} icon={userIcon}/>}
+        {filter && <IconButton icon={filterIcon} onClick={onClick} />}
       </div>
 
     </div>

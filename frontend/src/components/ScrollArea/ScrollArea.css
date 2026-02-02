@@ -5,6 +5,7 @@
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   z-index: 3;
+  padding-bottom: 3rem;
 }
 
 /* vertical scrolling (default) */
