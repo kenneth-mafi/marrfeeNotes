@@ -13,13 +13,18 @@ export default function NotesPage({ deleted = false }) {
   const filteredNotes = notesData.filter((note) =>
     deleted ? note.deleted : !note.deleted
   );
+  
+  const deletedPageSubtitle = filteredNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
+  const notesPageSubtitle = filteredNotes.length === 0 ? "No notes here" : "Ideas live here.";
+
+  const showBottomNav = deleted ? false : true;
 
   const pageContent = [
     { Component: SubHeader, props: {back: true, onSearch: "s", filter: true } },
     { Component: PageTitle, 
       props: { 
         title: deleted ? "Recently Deleted" : "Notes",
-        subtitle: deleted ? "Not gone forever… yet." : "Ideas live here."
+        subtitle: deleted ? deletedPageSubtitle : notesPageSubtitle
       }
     },
     {
@@ -29,7 +34,7 @@ export default function NotesPage({ deleted = false }) {
         </ScrollArea>
       )
     },
-    { Component: BottomNav }
+    { Component: BottomNav, props: {show: showBottomNav} }
   ]
   return <MainPageFrame components={pageContent} className="page notes-page" effect="slideInLeft"/>
 }

@@ -1,10 +1,10 @@
 import RoundButton from '../buttons/roundButton/RoundButton';
 import './bottomNav.css';
 
-const BottomNav = ({ onClick }) => {
+const BottomNav = ({ onClick, show }) => {
     return (
         <div className="buttom-nav-contr">
-            <RoundButton onClick={onClick} />
+            {show && <RoundButton onClick={onClick} />}
         </div>
     )
 }
