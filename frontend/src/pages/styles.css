@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&family=Sekuya&display=swap');
+
 .page{
+    font-family: "Quicksand", sans-serif;
     width: 100%;
     height: 100%;
 }

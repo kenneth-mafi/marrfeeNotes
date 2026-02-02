@@ -1,0 +1,13 @@
+.page-title, .page-subtitle{
+    width: 100%;
+    text-align: left;
+    padding: 0 1rem;
+    color: #291a64;
+    font-size: 1.6rem;
+}
+
+.page-subtitle{
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #787878;
+}

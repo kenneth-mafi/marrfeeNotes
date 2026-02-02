@@ -13,7 +13,7 @@ function App() {
     <BrowserRouter>
         <DeviceFrame>
             <Routes>
-              <Route path="/" element={<NoteEditorPage />} />
+              <Route path="/" element={<FoldersPage />} />
               <Route path="/folders" element={<FoldersPage />} />
               <Route path="/notes" element={<NotesPage />} />
               <Route path="/deleted" element={<NotesPage deleted />} />

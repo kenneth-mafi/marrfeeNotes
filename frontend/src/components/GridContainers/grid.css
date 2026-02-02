@@ -1,0 +1,12 @@
+
+.column-grid-container{
+  display: grid;
+  width: 100%;
+  height: auto;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+  margin: 0 auto;
+  padding: 0.8rem;
+}
+
+

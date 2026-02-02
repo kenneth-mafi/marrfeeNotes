@@ -1,0 +1,82 @@
+.note-card {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.04),
+    0 4px 12px rgba(0,0,0,0.04);
+
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+  cursor: pointer;
+}
+
+.note-icon-contr{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.note-icon{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.note-details-contr{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.3rem;
+    line-height: 1;
+}
+
+/* Hover lift */
+.note-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 10px rgba(0,0,0,0.06),
+    0 12px 24px rgba(0,0,0,0.06);
+}
+
+/* Title */
+.note-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Preview text */
+.note-preview {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: #555;
+
+  /* Limit to 1 line */
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+/* Meta row */
+.note-meta {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.75rem;
+  color: #999;
+}
