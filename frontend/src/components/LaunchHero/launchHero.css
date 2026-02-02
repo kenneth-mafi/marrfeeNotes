@@ -1,0 +1,64 @@
+.launch-hero-contr{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background-color: #C47BE4;
+}
+
+.hero-text-contr{
+    width: 70%;
+    text-align: left;
+    line-height: 2.4rem;
+    margin: 0 auto;
+}
+
+.hero-text{
+    font-size: 2.1rem;
+    font-weight: 700;
+}
+
+.hero-image-contr{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.hero-image{
+    width: 100%;
+    object-fit: cover;
+}
+
+.hero-loader-contr {
+  width: 140px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.3;
+    transform: scaleX(0.6);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scaleX(0.6);
+  }
+}
+
+.footnote{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
