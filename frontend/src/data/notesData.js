@@ -24,6 +24,62 @@ export const notesData = [
     deleted: false,
   },
   {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
+    id: "n3",
+    title: "Grocery list",
+    body:
+      "Oats, oat milk, strawberries, ginger, miso, spinach, sourdough, olive oil, dark chocolate.",
+    updatedAt: "Sat",
+    deleted: false,
+  },
+  {
     id: "n4",
     title: "Meeting notes",
     body:

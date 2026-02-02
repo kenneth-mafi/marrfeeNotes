@@ -18,9 +18,9 @@ export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", on
       {/* Right */}
       <div className="subheader-right">
         {isWriting && <TextButton text={actionText} onClick={onSave} />}
-        {isWriting && <LikeButton onClick={onLike} />}
+        {onLike && <LikeButton onClick={onLike} />}
         {onSearch && <SearchBar />}
-        {!isWriting && <IconButton onClick={onClick} icon={userIcon}/>}
+        {!onLike && <IconButton onClick={onClick} icon={userIcon}/>}
       </div>
 
     </div>

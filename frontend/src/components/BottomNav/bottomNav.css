@@ -1,0 +1,13 @@
+.buttom-nav-contr{
+    width: 30%;
+    background: none;
+    z-index: 10;
+    height: 5.5rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    bottom: 3rem;
+    right: 0;
+}

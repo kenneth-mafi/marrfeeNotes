@@ -1,0 +1,27 @@
+.scrollArea{
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  z-index: 3;
+}
+
+/* vertical scrolling (default) */
+.scrollArea--y{
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* horizontal scrolling */
+.scrollArea--x{
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+/* optional: hide scrollbar but keep scrolling */
+.scrollArea::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+}

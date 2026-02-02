@@ -1,6 +1,6 @@
 import './notepad.css'
 
-const Notepad = ({title, setTitle, body, setBody}) => {
+const Notepad = ({title, setTitle, body, setBody, setIsWriting}) => {
     return (
         <div className="note-pad-contr">
             <input
@@ -14,6 +14,8 @@ const Notepad = ({title, setTitle, body, setBody}) => {
                 className='notepad-body-area'
                 placeholder="Start writing..."
                 value={body}
+                onFocus={() => {setIsWriting(true);
+                }}
                 onChange={(event) => setBody(event.target.value)}
             />
         </div>

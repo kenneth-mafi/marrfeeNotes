@@ -16,11 +16,12 @@ export default function NoteEditorPage() {
 
   const [title, setTitle] = useState(note?.title || "");
   const [body, setBody] = useState(note?.body || "");
+  const [isWriting, setIsWriting] = useState(false)
 
   const pageContent = [
-    { Component: SubHeader, props: {back: true} },
+    { Component: SubHeader, props: {back: true, isWriting: isWriting, onLike: "s"} },
     { Component: Notepad, 
-      props: { title: title, setTitle: setTitle, body: body, setBody: setBody }
+      props: { title: title, setTitle: setTitle, body: body, setBody: setBody, setIsWriting: setIsWriting }
     }
   ]
 

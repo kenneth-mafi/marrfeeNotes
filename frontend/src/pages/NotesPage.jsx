@@ -5,6 +5,8 @@ import { SubHeader } from "../components/subheader/Subheader";
 import { ColumnGrid } from "../components/GridContainers/ColumnGrid";
 import PageTitle from "../components/PageTitle/PageTitle";
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";
+import BottomNav from "../components/BottomNav/BottomNav";
+import ScrollArea from "../components/ScrollArea/ScrollArea";
 
 export default function NotesPage({ deleted = false }) {
 
@@ -20,7 +22,14 @@ export default function NotesPage({ deleted = false }) {
         subtitle: deleted ? "Not gone forever… yet." : "Ideas live here."
       }
     },
-    { Component: ColumnGrid, props: { items: filteredNotes, Component: NoteCard} }
+    {
+      Component: () => (
+        <ScrollArea>
+          <ColumnGrid items={filteredNotes} Component={NoteCard} />
+        </ScrollArea>
+      )
+    },
+    { Component: BottomNav }
   ]
   return <MainPageFrame components={pageContent} className="page notes-page" effect="slideInLeft"/>
 }
