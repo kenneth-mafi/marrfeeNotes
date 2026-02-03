@@ -24,7 +24,9 @@ export const SubHeader = ({
   onSelectNotes,
   selectMode=false,
   groupByDate=false,
-  onToggleGroupByDate
+  onToggleGroupByDate,
+  searchContent,
+  onSearchChange
   }) => {
 
   const navigate = useNavigate()
@@ -52,7 +54,7 @@ export const SubHeader = ({
       <div className="subheader-right">
         {isWriting && <TextButton text={actionText} onClick={handleSave} />}
         {onLike && <LikeButton onClick={onLike} />}
-        {onSearch && <SearchBar />}
+        {onSearch && <SearchBar searchContent={searchContent}  onSearchChange={onSearchChange}/>}
         {!onLike && !filter && <IconButton onClick={onClick} icon={userIcon}/>}
 
         {filter && !deletedPage && (
@@ -68,7 +70,7 @@ export const SubHeader = ({
             onToggleGroupByDate={onToggleGroupByDate}
           />
         )}
-        
+
         {deletedPage && <TextButton text={"Edit"} onClick={onEdit} />}
       </div>
 

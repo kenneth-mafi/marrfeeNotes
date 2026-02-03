@@ -1,9 +1,10 @@
 
-export const filterNotesBy = (notes, filter) => {
+export const filterNotesBy = (notes, filter, searchContent="") => {
     if (!Array.isArray(notes)) return [];
-    const allowedFilters = ["updatedAt", "createdAt", "title"]
+    const allowedFilters = ["updatedAt", "createdAt", "title", "search"]
     if (!allowedFilters.includes(filter)) return [...notes];
-    
+    if (filter === "search" && !searchContent.trim()) return [...notes];
+
     const noteCopy = [...notes];
 
     if (filter === "updatedAt" || filter === "createdAt") {
@@ -17,6 +18,15 @@ export const filterNotesBy = (notes, filter) => {
             })
         );
     }
+
+    if (filter === "search") {
+        const query = searchContent.toLocaleLowerCase();
+        return noteCopy.filter(note => 
+            String(note.body ?? "")
+                .toLocaleLowerCase()
+                .includes(query)
+        );
+    };
     
     return noteCopy;
 };

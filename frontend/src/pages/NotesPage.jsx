@@ -18,10 +18,11 @@ export default function NotesPage({ deleted = false }) {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [groupByDate, setGroupByDate] = useState(false);
     const [selectMode, setSelectMode] = useState(false);
+    const [searchContent, setSearchContent] = useState("")
 
     const { notes, deletedNotes} = useNoteContext();
     
-    const noteData = !deleted ? filterNotesBy(notes, filter) : deletedNotes;
+    const noteData = !deleted ? filterNotesBy(notes, filter, searchContent) : deletedNotes;
     
     const deletedPageSubtitle = deletedNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
     const notesPageSubtitle = notes.length === 0 ? "No notes here" : "Ideas live here.";
@@ -35,7 +36,7 @@ export default function NotesPage({ deleted = false }) {
     }, [filter]);
 
 
-    const handleClick = () => {
+    const handleNewNote = () => {
       navigate("/note/new")
     };
 
@@ -45,6 +46,11 @@ export default function NotesPage({ deleted = false }) {
 
     const handleSortChange = (event) => {
       setFilter(event.target.value);
+    };
+
+    const handleSearchChange = (event) => {
+      setFilter("search")
+      setSearchContent(event.target.value);
     };
 
     const toggleGroupByDate = () => {
@@ -70,7 +76,9 @@ export default function NotesPage({ deleted = false }) {
           onSelectNotes: toggleSelectMode,
           selectMode: selectMode,
           groupByDate: groupByDate,
-          onToggleGroupByDate: toggleGroupByDate
+          onToggleGroupByDate: toggleGroupByDate,
+          onSearchChange: handleSearchChange,
+          searchContent: searchContent
         } 
       },
       { Component: PageTitle, 
@@ -86,7 +94,7 @@ export default function NotesPage({ deleted = false }) {
           </ScrollArea>
         )
       },
-      { Component: BottomNav, props: {onClick: handleClick, show: showBottomNav} }
+      { Component: BottomNav, props: {onClick: handleNewNote, show: showBottomNav} }
     ]
     return <MainPageFrame components={pageContent} className="page notes-page" effect="slideInLeft"/>
 }

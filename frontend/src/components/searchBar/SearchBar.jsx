@@ -1,19 +1,19 @@
 import './searchBar.css';
 import searchIcon from '../../assets/search.png';
 
-const SearchBar = ({ search, setSearch, onSearch }) => {
+const SearchBar = ({ searchContent, onSearchChange }) => {
     return (
         <div className="search-box-contr">
         <input 
             className='search-box'
             type="search" 
-            name="" 
-            id=""
+            name="search" 
+            id="search"
             placeholder='Find notes'
-            value={search}
-            onChange={(event) => { setSearch(event.target.value) }}     
+            value={searchContent}
+            onChange={onSearchChange}     
         />
-        <img src={searchIcon} alt="search" className="search-icon" onClick={onSearch}/>
+        {!searchContent && <img src={searchIcon} alt="search" className="search-icon" />}
         </div>
     )
 }
