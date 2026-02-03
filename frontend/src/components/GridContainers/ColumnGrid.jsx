@@ -1,7 +1,8 @@
 import './grid.css';
 
-export function ColumnGrid({ items = [], Component }) {
-  
+export function ColumnGrid({ items = [], searchContent="", deleted, Component }) {
+  let search = ""
+  if (!deleted) { search = searchContent; }
   return (
 
       <div 
@@ -13,6 +14,7 @@ export function ColumnGrid({ items = [], Component }) {
                   <Component
                     key={item.noteId ?? index}
                     {...item}
+                    searchContent={search}
                   />
                 );
           

@@ -24,9 +24,22 @@ export const filterNotesBy = (notes, filter, searchContent="") => {
         return noteCopy.filter(note => 
             String(note.body ?? "")
                 .toLocaleLowerCase()
+                .includes(query) || 
+            String(note.title ?? "")
+                .toLowerCase()
                 .includes(query)
         );
     };
     
     return noteCopy;
+};
+
+
+const escapeRegExp = (s = "") => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+export const getHighlightedParts = (text = "", query = "") => {
+  const q = query.trim();
+  if (!q) return [String(text)];
+  const re = new RegExp(`(${escapeRegExp(q)})`, "gi");
+  return String(text).split(re); // keeps matches
 };

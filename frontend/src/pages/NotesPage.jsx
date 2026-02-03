@@ -90,7 +90,7 @@ export default function NotesPage({ deleted = false }) {
       {
         Component: () => (
           <ScrollArea>
-            <ColumnGrid items={noteData} Component={NoteCard} />
+            <ColumnGrid items={noteData} searchContent={searchContent} deleted={deleted} Component={NoteCard} />
           </ScrollArea>
         )
       },
