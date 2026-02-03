@@ -1,0 +1,70 @@
+<mxfile host="65bd71144e">
+    <diagram name="Notes CRUD Flow" id="0">
+        <mxGraphModel dx="942" dy="1663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="start" value="Frontend Action" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#333;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="140" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="create" value="Create Note&#xa;POST /api/notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="60" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="update" value="Update Note&#xa;PATCH /api/notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="150" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="soft" value="Soft Delete&#xa;DELETE /api/delete-temp" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="240" width="220" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="restore" value="Restore Note&#xa;PATCH /api/restore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="330" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="hard" value="Hard Delete&#xa;DELETE /api/delete" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" parent="1" vertex="1">
+                    <mxGeometry x="240" y="420" width="200" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="db" value="Postgres notes table&#xa;created_at / updated_at / deleted_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde7e9;strokeColor=#c5221f;" parent="1" vertex="1">
+                    <mxGeometry x="520" y="200" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="list" value="Fetch Notes&#xa;GET /api/active-notes&#xa;GET /api/deleted-notes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="-60" width="240" height="90" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" style="endArrow=block;html=1;strokeColor=#333;" parent="1" source="start" target="create" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" style="endArrow=block;html=1;strokeColor=#333;" parent="1" source="start" target="update" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" style="endArrow=block;html=1;strokeColor=#333;" parent="1" source="start" target="soft" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" style="endArrow=block;html=1;strokeColor=#333;" parent="1" source="start" target="restore" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" style="endArrow=block;html=1;strokeColor=#333;" parent="1" source="start" target="hard" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" style="endArrow=block;html=1;strokeColor=#1a73e8;" parent="1" source="create" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" style="endArrow=block;html=1;strokeColor=#1a73e8;" parent="1" source="update" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" style="endArrow=block;html=1;strokeColor=#1a73e8;" parent="1" source="soft" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" style="endArrow=block;html=1;strokeColor=#1a73e8;" parent="1" source="restore" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" style="endArrow=block;html=1;strokeColor=#1a73e8;" parent="1" source="hard" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" style="endArrow=block;html=1;strokeColor=#1a73e8;" parent="1" source="list" target="db" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" style="edgeStyle=none;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=-0.003;entryY=0.916;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="start" target="list">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

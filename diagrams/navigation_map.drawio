@@ -1,0 +1,39 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Navigation Map (Simple)">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="home" value="Welcome" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#333;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="signin" value="Sign in" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" vertex="1" parent="1">
+          <mxGeometry x="240" y="80" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="register" value="Register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;" vertex="1" parent="1">
+          <mxGeometry x="240" y="150" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="folders" value="Folders" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f4ea;strokeColor=#188038;" vertex="1" parent="1">
+          <mxGeometry x="440" y="120" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="notes" value="Notes list" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f4ea;strokeColor=#188038;" vertex="1" parent="1">
+          <mxGeometry x="640" y="80" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="trash" value="Trash list" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde7e9;strokeColor=#c5221f;" vertex="1" parent="1">
+          <mxGeometry x="640" y="150" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="editor" value="Note editor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4e5;strokeColor=#e37400;" vertex="1" parent="1">
+          <mxGeometry x="840" y="80" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=block;html=1;strokeColor=#333;" edge="1" parent="1" source="home" target="signin"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=block;html=1;strokeColor=#333;" edge="1" parent="1" source="home" target="register"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=block;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="signin" target="folders"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=block;html=1;strokeColor=#1a73e8;" edge="1" parent="1" source="register" target="folders"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=block;html=1;strokeColor=#188038;" edge="1" parent="1" source="folders" target="notes"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=block;html=1;strokeColor=#c5221f;" edge="1" parent="1" source="folders" target="trash"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=block;html=1;strokeColor=#e37400;" edge="1" parent="1" source="notes" target="editor"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

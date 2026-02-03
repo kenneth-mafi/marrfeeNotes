@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import notesImg from '../../assets/notepad.png';
-import deletedImg from '../../assets/rubbish-bin.png';
 import './folderCard.css';
 
 export default function FolderCard({ title, count, image, to }) {
@@ -9,7 +7,7 @@ export default function FolderCard({ title, count, image, to }) {
       <div className="folder-details-contr">
         <div>
           <h3 className="folder-card-title">{title}</h3>
-          <p className="folder-card-subtitle">Ideas live here.</p>
+          <p className="folder-card-subtitle">{title === "My Notes" ? "Your ideas live here" : "Revive those trashed ideas"}</p>
         </div>
         <div className="folder-count">{count}</div>
       </div>
