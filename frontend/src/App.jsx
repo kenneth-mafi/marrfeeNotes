@@ -6,7 +6,6 @@ import NotesPage from "./pages/NotesPage";
 import NoteEditorPage from "./pages/NoteEditorPage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
-import "./styles/app.css";
 import LogInPage from "./pages/LogInPage/LogInPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 

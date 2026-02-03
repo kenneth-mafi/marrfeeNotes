@@ -6,7 +6,19 @@ import userIcon from '../../assets/user.png'
 import SearchBar from "../searchBar/SearchBar";
 import filterIcon from '../../assets/filters.png';
 
-export const SubHeader = ({ back=false, isWriting, setIsWriting, onSave, actionText="Save", onLike, onClick, onSearch, filter=false }) => {
+export const SubHeader = ({ 
+  back=false, 
+  isWriting, 
+  setIsWriting, 
+  onSave, 
+  actionText="Save", onLike, 
+  onClick, 
+  onSearch, 
+  filter=false, 
+  deletedPage ,
+  onEdit
+  }) => {
+
   const navigate = useNavigate()
 
 
@@ -34,7 +46,8 @@ export const SubHeader = ({ back=false, isWriting, setIsWriting, onSave, actionT
         {onLike && <LikeButton onClick={onLike} />}
         {onSearch && <SearchBar />}
         {!onLike && !filter && <IconButton onClick={onClick} icon={userIcon}/>}
-        {filter && <IconButton icon={filterIcon} onClick={onClick} />}
+        {filter && !deletedPage && <IconButton icon={filterIcon} onClick={onClick} />}
+        {deletedPage && <TextButton text={"Edit"} onClick={onEdit} />}
       </div>
 
     </div>

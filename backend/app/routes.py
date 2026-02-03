@@ -27,10 +27,16 @@ def get_active_notes():
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
-    sql = "SELECT note_id, title, body, updated_at FROM notes.notes WHERE user_id = %s AND deleted_at IS NULL ORDER BY updated_at DESC"
+    sql = "SELECT note_id, title, body, updated_at, created_at FROM notes.notes WHERE user_id = %s AND deleted_at IS NULL ORDER BY updated_at DESC"
     rows = execute_sql(sql, (user_id,))
     notes = [
-        {"noteId": r[0], "title": r[1], "body": r[2], "updatedAt": r[3].isoformat()[0:10]}
+        { 
+            "noteId": r[0], 
+            "title": r[1], 
+            "body": r[2], 
+            "updatedAt": r[3].isoformat()[0:10], 
+            "createdAt": r[4].isoformat()[0:10] 
+        }
         for r in rows
     ]
     return jsonify({"success": True, "rows": notes}), 200
@@ -44,10 +50,16 @@ def get_deleted_notes():
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
-    sql = "SELECT * FROM notes.notes WHERE user_id = %s AND deleted_at IS NOT NULL ORDER BY updated_at DESC"
+    sql = "SELECT note_id, title, body, updated_at, created_at, deleted_at FROM notes.notes WHERE user_id = %s AND deleted_at IS NOT NULL ORDER BY updated_at DESC"
     rows = execute_sql(sql, (user_id,))
     notes = [
-        {"noteId": r[0], "title": r[1], "body": r[2], "deletedAt": r[3].isoformat()[0:10]}
+        {
+            "noteId": r[0], 
+            "title": r[1], 
+            "body": r[2], 
+            "deletedAt": r[3].isoformat()[0:10], 
+            "createdAt": r[4].isoformat()[0:10], 
+            "deletedAt": r[5].isoformat()[0:10]}
         for r in rows
     ]
     return jsonify({"success": True, "rows": notes}), 200
