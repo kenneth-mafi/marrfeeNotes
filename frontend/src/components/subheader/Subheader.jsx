@@ -4,7 +4,7 @@ import "./subheader.css";
 import { useNavigate } from "react-router-dom";
 import userIcon from '../../assets/user.png'
 import SearchBar from "../searchBar/SearchBar";
-import filterIcon from '../../assets/filters.png';
+import FilterMenu from "./FilterMenu";
 
 export const SubHeader = ({ 
   back=false, 
@@ -56,29 +56,17 @@ export const SubHeader = ({
         {!onLike && !filter && <IconButton onClick={onClick} icon={userIcon}/>}
 
         {filter && !deletedPage && (
-          <div className="filter-menu-wrapper">
-            <IconButton icon={filterIcon} onClick={onToggleFilter || onClick} />
-            <div className={`filter-menu ${filterOpen ? "open" : ""}`}>
-              <button type="button" className="filter-menu-btn" onClick={onSelectNotes}>
-                {selectMode ? "Cancel selection" : "Select notes"}
-              </button>
-              <div className="filter-menu-row">
-                <span className="filter-menu-label">Sort by</span>
-                <select
-                  className="filter-menu-select"
-                  value={sortValue}
-                  onChange={onSortChange}
-                >
-                  <option value="updatedAt">Date Edited</option>
-                  <option value="createdAt">Date Created</option>
-                  <option value="title">Title</option>
-                </select>
-              </div>
-              <button type="button" className="filter-menu-btn" onClick={onToggleGroupByDate}>
-                {groupByDate ? "Ungroup by date" : "Group by date"}
-              </button>
-            </div>
-          </div>
+          <FilterMenu
+            filterOpen={filterOpen}
+            onToggleFilter={onToggleFilter}
+            onClick={onClick}
+            sortValue={sortValue}
+            onSortChange={onSortChange}
+            onSelectNotes={onSelectNotes}
+            selectMode={selectMode}
+            groupByDate={groupByDate}
+            onToggleGroupByDate={onToggleGroupByDate}
+          />
         )}
         
         {deletedPage && <TextButton text={"Edit"} onClick={onEdit} />}
