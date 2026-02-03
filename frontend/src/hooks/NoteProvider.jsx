@@ -19,56 +19,59 @@ const NoteProvider = ({ children }) => {
         localStorage.setItem("access_token", token);
     };
 
-    const register = async ( userData ) => {
-        setIsVerifying(true)
-        const res = await sendAPIRequest("register", userData, "POST")
+    const showError = (message) => {
+        setAlertInfo({ error: true, message });
+        setShowAlert(true);
 
+        setTimeout(() => {
+            setShowAlert(false);
+            setAlertInfo({ error: false, message: "" });
+        }, 2000);
+    };
+
+    const handleAuthResponse = async (res, fallbackMessage) => {
         if (!res?.success || !res?.access_token) {
-            setAlertInfo({
-                error: true,
-                message: res.error || "Registration failed"
-            })
-
-            setShowAlert(true)
-
-            // auto-hide after 2s
-            setTimeout(() => {
-                setShowAlert(false)
-                setAlertInfo({ error: false, message: "" })
-            }, 2000)
-            
-            setIsVerifying(false)
-            return false
-        }
-        saveToken(res.access_token)
-        await fetchNotes()
-        setIsVerifying(false)
-        return true;
-    }
-
-    const login = async ( userData ) => {
-        setIsVerifying(true)
-        const res = await sendAPIRequest("login", userData, "POST")
-        if (!res?.success || !res?.access_token) {
-            setAlertInfo({
-                error: true,
-                message: res.error || "Login failed"
-            })
-
-            setShowAlert(true)
-
-            // auto-hide after 2s
-            setTimeout(() => {
-                setShowAlert(false)
-                setAlertInfo({ error: false, message: "" })
-            }, 2000)
-            setIsVerifying(false)
+            showError(res?.error || fallbackMessage);
             return false;
         }
-        saveToken(res.access_token)
-        await fetchNotes()
-        setIsVerifying(false)
+
+        saveToken(res.access_token);
+        await fetchNotes();
         return true;
+    };
+
+    const register = async (userData) => {
+        setIsVerifying(true);
+        try {
+            const res = await sendAPIRequest("register", userData, "POST");
+            return await handleAuthResponse(res, "Registration failed");
+        } finally {
+            setIsVerifying(false);
+        }
+    };
+
+    const login = async (userData) => {
+        setIsVerifying(true);
+        try {
+            const res = await sendAPIRequest("login", userData, "POST");
+            return await handleAuthResponse(res, "Login failed");
+        } finally {
+            setIsVerifying(false);
+        }
+    };
+
+
+
+    const createNote = async ( noteData ) => {
+        const access_token = localStorage.getItem("access_token")
+        const res = await sendAPIRequest("notes", noteData, "POST", access_token);
+        if (!res?.success) { 
+            console.log(res.error);
+            await fetchNotes()
+            return;
+        }
+        await fetchNotes()
+        return res?.note_id      
 
     }
 
@@ -86,18 +89,6 @@ const NoteProvider = ({ children }) => {
         return notes.find(note => note.noteId === id)
     }
 
-    const createNote = async ( noteData ) => {
-        const access_token = localStorage.getItem("access_token")
-        const res = await sendAPIRequest("notes", noteData, "POST", access_token);
-        if (!res?.success) { 
-            console.log(res.error);
-            await fetchNotes()
-            return;
-        }
-        await fetchNotes()
-        return res?.note_id      
-
-    }
      
     const updateNote = async ( noteData ) => {
         const access_token = localStorage.getItem("access_token")
