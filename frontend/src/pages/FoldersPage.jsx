@@ -6,10 +6,12 @@ import { notesData } from "../data/notesData";
 import deletedImg from '../assets/rubbish-bin.png';
 import notesImg from '../assets/notepad.png';
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";
+import { useNoteContext } from "../hooks/useContext";
 
 export default function FoldersPage() {
-  const notesCount = notesData.filter((note) => !note.deleted).length;
-  const deletedCount = notesData.filter((note) => note.deleted).length;
+  const { notes, deletedNotes} = useNoteContext();
+  const notesCount = notes.length;
+  const deletedCount = deletedNotes.length;
 
   const gridItems = [
     {title: "My Notes", count: notesCount, image: notesImg, to: "/notes"},

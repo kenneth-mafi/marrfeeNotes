@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getNoteById } from "../data/notesData";
 import { SubHeader } from "../components/subheader/Subheader";
 import Notepad from "../components/Notepad/Notepad";
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";
@@ -8,7 +7,7 @@ import { useNoteContext } from "../hooks/useContext";
 
 export default function NoteEditorPage() {
   const { id } = useParams();
-  const { createNote } = useNoteContext();
+  const { createNote, getNoteById } = useNoteContext();
 
   const note = useMemo(() => {
     if (id === "new") return null;

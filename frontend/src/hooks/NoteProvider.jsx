@@ -10,6 +10,9 @@ const NoteProvider = ({ children }) => {
     const [ alertInfo, setAlertInfo ] = useState({error: false, message: ""})
     const [ isVerifying, setIsVerifying ] = useState(false)
 
+    useEffect(() => { 
+        fetchNotes()
+    }, [])
 
     const saveToken = (token) => {
         if (!token) return;
@@ -75,8 +78,11 @@ const NoteProvider = ({ children }) => {
             console.log(res.error);
             return [];
         }
-        // return res?.rows
-        console.log(res.rows);
+        setNotes(res.rows)
+    }
+
+    const getNoteById = (id) => {
+        return notes.find(note => note.noteId === id)
     }
 
     const createNote = async ( noteData ) => {
@@ -88,7 +94,8 @@ const NoteProvider = ({ children }) => {
         }
         return res?.note_id       
     }
-
+     
+    
     
     return(
         <NoteContext.Provider 
@@ -98,7 +105,10 @@ const NoteProvider = ({ children }) => {
                 register,
                 login,
                 isVerifying,
-                createNote
+                createNote,
+                notes,
+                deletedNotes,
+                getNoteById
             }}
         >
             {children}

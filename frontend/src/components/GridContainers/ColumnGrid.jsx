@@ -11,7 +11,7 @@ export function ColumnGrid({ items = [], Component }) {
             if (!Component) return null;
                 return (
                   <Component
-                    key={item.id ?? index}
+                    key={item.noteId ?? index}
                     {...item}
                   />
                 );

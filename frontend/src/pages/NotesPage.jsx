@@ -7,16 +7,17 @@ import PageTitle from "../components/PageTitle/PageTitle";
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";
 import BottomNav from "../components/BottomNav/BottomNav";
 import ScrollArea from "../components/ScrollArea/ScrollArea";
+import { useNoteContext } from "../hooks/useContext";
 
 export default function NotesPage({ deleted = false }) {
     const navigate = useNavigate();
+    const { notes, deletedNotes} = useNoteContext();
 
-    const filteredNotes = notesData.filter((note) =>
-      deleted ? note.deleted : !note.deleted
-    );
-
-    const deletedPageSubtitle = filteredNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
-    const notesPageSubtitle = filteredNotes.length === 0 ? "No notes here" : "Ideas live here.";
+    const noteData = !deleted ? notes : deletedNotes;
+    console.log(notes);
+    
+    const deletedPageSubtitle = deletedNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
+    const notesPageSubtitle = notes.length === 0 ? "No notes here" : "Ideas live here.";
 
     const showBottomNav = deleted ? false : true;
 
@@ -35,7 +36,7 @@ export default function NotesPage({ deleted = false }) {
       {
         Component: () => (
           <ScrollArea>
-            <ColumnGrid items={filteredNotes} Component={NoteCard} />
+            <ColumnGrid items={noteData} Component={NoteCard} />
           </ScrollArea>
         )
       },
