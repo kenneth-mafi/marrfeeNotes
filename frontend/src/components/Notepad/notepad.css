@@ -9,6 +9,9 @@
     font-size: 1.8rem;
     font-weight: bold;
     padding: 1rem 1rem 0.4rem;
+    resize: none;
+    overflow: hidden;
+    line-height: 1.2;
 }
 
 .notepad-body-area, .notepad-title-area{

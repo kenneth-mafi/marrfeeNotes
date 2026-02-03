@@ -3,12 +3,16 @@ import './notepad.css'
 const Notepad = ({title, setTitle, body, setBody, setIsWriting}) => {
     return (
         <div className="note-pad-contr">
-            <input
+            <textarea
                 className='notepad-title-area'
-                type="text"
+                rows={1}
                 placeholder="Title"
                 value={title}
                 onChange={(event) => setTitle(event.target.value)}
+                onInput={(event) => {
+                    event.currentTarget.style.height = "auto";
+                    event.currentTarget.style.height = `${event.currentTarget.scrollHeight}px`;
+                }}
                 onFocus={() => {setIsWriting?.(true);}}
             />
             <textarea
