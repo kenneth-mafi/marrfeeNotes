@@ -36,11 +36,12 @@ const NoteProvider = ({ children }) => {
                 setShowAlert(false)
                 setAlertInfo({ error: false, message: "" })
             }, 2000)
+            
             setIsVerifying(false)
             return false
         }
         saveToken(res.access_token)
-        console.log("✅");
+        await fetchNotes()
         setIsVerifying(false)
         return true;
     }
@@ -65,7 +66,7 @@ const NoteProvider = ({ children }) => {
             return false;
         }
         saveToken(res.access_token)
-        console.log("✅");
+        await fetchNotes()
         setIsVerifying(false)
         return true;
 
@@ -90,9 +91,12 @@ const NoteProvider = ({ children }) => {
         const res = await sendAPIRequest("notes", noteData, "POST", access_token);
         if (!res?.success) { 
             console.log(res.error);
+            await fetchNotes()
             return;
         }
-        return res?.note_id       
+        await fetchNotes()
+        return res?.note_id      
+
     }
      
     const updateNote = async ( noteData ) => {
@@ -100,8 +104,10 @@ const NoteProvider = ({ children }) => {
         const res = await sendAPIRequest("notes", noteData, "PATCH", access_token);
         if (!res?.success) { 
             console.log(res.error);
+            await fetchNotes()
             return;
         }
+        await fetchNotes()
         return res?.note_id          
     }
     

@@ -12,7 +12,7 @@ export const SubHeader = ({ back=false, isWriting, setIsWriting, onSave, actionT
 
   const handleSave = () => {
       if (onSave) onSave()
-      setIsWriting(false)
+      if (setIsWriting) setIsWriting(false)
   }
 
   const goBack = () => { 
