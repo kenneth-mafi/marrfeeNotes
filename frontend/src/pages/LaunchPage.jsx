@@ -12,7 +12,7 @@ export default function LaunchPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/login");
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [navigate]);
   const pageContent = [

@@ -15,10 +15,12 @@
     transform 0.12s ease,
     box-shadow 0.12s ease;
   cursor: pointer;
+  min-width: 0;
 }
 
 .note-icon-contr{
-    width: 15%;
+    flex: 0 0 48px;
+    width: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -38,6 +40,10 @@
     justify-content: center;
     gap: 0.3rem;
     line-height: 1;
+    min-width: 0;
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Hover lift */
@@ -57,6 +63,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: normal;
+  max-width: 100%;
+  width: 100%;
+  display: block;
 }
 
 
@@ -71,6 +80,8 @@
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  max-width: 100%;
+  width: 100%;
 }
 
 
