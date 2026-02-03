@@ -10,9 +10,9 @@ const NoteProvider = ({ children }) => {
     const [ alertInfo, setAlertInfo ] = useState({error: false, message: ""})
     const [ isVerifying, setIsVerifying ] = useState(false)
 
-    useEffect(() => { 
-        fetchNotes()
-    }, [])
+    // useEffect(() => { 
+    //     fetchNotes()
+    // }, [])
 
     const saveToken = (token) => {
         if (!token) return;
