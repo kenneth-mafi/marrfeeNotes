@@ -187,6 +187,7 @@ def update_note():
     if title is None and body is None:
         return jsonify({"success": False, "error": "Provide title and/or body"}), 400
 
+    
     # Build dynamic SET safely (still parameterized)
     set_parts = []
     params = []
@@ -205,15 +206,27 @@ def update_note():
         UPDATE notes.notes
         SET {", ".join(set_parts)}
         WHERE user_id = %s AND note_id = %s AND deleted_at IS NULL
+        AND (title IS DISTINCT FROM %s OR body IS DISTINCT FROM %s)
         RETURNING note_id
     """
     params.extend([user_id, note_id])
+    params.extend([title, body])
 
     try:
         row = execute_sql(sql, tuple(params), fetch="one")
         if not row:
-            return jsonify({"success": False, "error": "Note not found (or is deleted)"}), 404
-        return jsonify({"success": True, "note_id": row[0]}), 200
+            
+            exists = execute_sql(
+                "SELECT 1 FROM notes.notes WHERE user_id = %s AND note_id = %s AND deleted_at IS NULL",
+                (user_id, note_id),
+                fetch="one"
+            )
+            if exists:
+                return jsonify({"success": True, "updated": False}), 200  # no change
+            return jsonify({"success": False, "error": "Note not found"}), 404
+
+        return jsonify({"success": True, "updated": True, "note_id": row[0]}), 200
+
     except Exception:
         return jsonify({"success": False, "error": "Could not update note"}), 400
 
