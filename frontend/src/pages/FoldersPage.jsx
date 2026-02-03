@@ -2,7 +2,6 @@ import FolderCard from "../components/folderCard/FolderCard";
 import { ColumnGrid } from "../components/GridContainers/ColumnGrid";
 import PageTitle from "../components/PageTitle/PageTitle";
 import { SubHeader } from "../components/subheader/Subheader";
-import { notesData } from "../data/notesData";
 import deletedImg from '../assets/rubbish-bin.png';
 import notesImg from '../assets/notepad.png';
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";

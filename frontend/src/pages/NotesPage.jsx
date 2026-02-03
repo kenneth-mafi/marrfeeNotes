@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import NoteCard from "../components/notecard/NoteCard";
-import { notesData } from "../data/notesData";
 import { SubHeader } from "../components/subheader/Subheader";
 import { ColumnGrid } from "../components/GridContainers/ColumnGrid";
 import PageTitle from "../components/PageTitle/PageTitle";
@@ -8,24 +7,28 @@ import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPag
 import BottomNav from "../components/BottomNav/BottomNav";
 import ScrollArea from "../components/ScrollArea/ScrollArea";
 import { useNoteContext } from "../hooks/useContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { filterNotesBy } from "../utils";
 
 export default function NotesPage({ deleted = false }) {
     const navigate = useNavigate();
     const currentFilter = localStorage.getItem("filter") || "updatedAt";
 
-    const [filter, setFilter] = useState(currentFilter)
+    const [filter, setFilter] = useState(currentFilter);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [groupByDate, setGroupByDate] = useState(false);
+    const [selectMode, setSelectMode] = useState(false);
 
     const { notes, deletedNotes} = useNoteContext();
     
-    const noteData = !deleted ? notes : deletedNotes;
+    const noteData = !deleted ? filterNotesBy(notes, filter) : deletedNotes;
     
     const deletedPageSubtitle = deletedNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
     const notesPageSubtitle = notes.length === 0 ? "No notes here" : "Ideas live here.";
 
     const showBottomNav = deleted ? false : true;
 
-    
+
 
     useEffect(() => {
       localStorage.setItem("filter", filter);
@@ -36,8 +39,40 @@ export default function NotesPage({ deleted = false }) {
       navigate("/note/new")
     };
 
+    const toggleFilterMenu = () => {
+      setIsFilterOpen((prev) => !prev);
+    };
+
+    const handleSortChange = (event) => {
+      setFilter(event.target.value);
+    };
+
+    const toggleGroupByDate = () => {
+      setGroupByDate((prev) => !prev);
+    };
+
+    const toggleSelectMode = () => {
+      setSelectMode((prev) => !prev);
+    };
+
     const pageContent = [
-      { Component: SubHeader, props: {back: true, onSearch: "s", filter: true, deletedPage: deleted } },
+      { 
+        Component: SubHeader, 
+        props: { 
+          back: true, 
+          onSearch: "s", 
+          filter: true, 
+          deletedPage: deleted,
+          filterOpen: isFilterOpen,
+          onToggleFilter: toggleFilterMenu,
+          sortValue: filter,
+          onSortChange: handleSortChange,
+          onSelectNotes: toggleSelectMode,
+          selectMode: selectMode,
+          groupByDate: groupByDate,
+          onToggleGroupByDate: toggleGroupByDate
+        } 
+      },
       { Component: PageTitle, 
         props: { 
           title: deleted ? "Recently Deleted" : "Notes",

@@ -12,9 +12,9 @@ export const filterNotesBy = (notes, filter) => {
 
     if (filter === "title") {
         return noteCopy.sort((a, b) =>
-        String(a.title ?? "").localeCompare(String(b.title ?? ""), undefined, {
-            sensitivity: "base",
-        })
+            String(a.title ?? "").localeCompare(String(b.title ?? ""), undefined, {
+                sensitivity: "base",
+            })
         );
     }
     
