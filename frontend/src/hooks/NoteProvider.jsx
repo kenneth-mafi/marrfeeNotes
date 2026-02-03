@@ -95,6 +95,15 @@ const NoteProvider = ({ children }) => {
         return res?.note_id       
     }
      
+    const updateNote = async ( noteData ) => {
+        const access_token = localStorage.getItem("access_token")
+        const res = await sendAPIRequest("notes", noteData, "PATCH", access_token);
+        if (!res?.success) { 
+            console.log(res.error);
+            return;
+        }
+        return res?.note_id          
+    }
     
     
     return(
@@ -106,6 +115,7 @@ const NoteProvider = ({ children }) => {
                 login,
                 isVerifying,
                 createNote,
+                updateNote,
                 notes,
                 deletedNotes,
                 getNoteById

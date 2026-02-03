@@ -6,12 +6,20 @@ import userIcon from '../../assets/user.png'
 import SearchBar from "../searchBar/SearchBar";
 import filterIcon from '../../assets/filters.png';
 
-export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", onLike, onClick, onSearch, filter=false }) => {
+export const SubHeader = ({ back=false, isWriting, setIsWriting, onSave, actionText="Save", onLike, onClick, onSearch, filter=false }) => {
   const navigate = useNavigate()
+
+
+  const handleSave = () => {
+      if (onSave) onSave()
+      setIsWriting(false)
+  }
+
   const goBack = () => { 
     navigate(-1) 
-    if (onSave) onSave();
+    handleSave()
   }
+
   return (
     <div className="subheader">
 
@@ -22,7 +30,7 @@ export const SubHeader = ({ back=false, isWriting, onSave, actionText="Save", on
 
       {/* Right */}
       <div className="subheader-right">
-        {isWriting && <TextButton text={actionText} onClick={onSave} />}
+        {isWriting && <TextButton text={actionText} onClick={handleSave} />}
         {onLike && <LikeButton onClick={onLike} />}
         {onSearch && <SearchBar />}
         {!onLike && !filter && <IconButton onClick={onClick} icon={userIcon}/>}

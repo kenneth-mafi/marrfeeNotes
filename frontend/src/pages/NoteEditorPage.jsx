@@ -7,7 +7,7 @@ import { useNoteContext } from "../hooks/useContext";
 
 export default function NoteEditorPage() {
   const { id } = useParams();
-  const { createNote, getNoteById } = useNoteContext();
+  const { createNote, getNoteById, updateNote } = useNoteContext();
 
   const note = useMemo(() => {
     if (id === "new") return null;
@@ -37,11 +37,15 @@ export default function NoteEditorPage() {
       }
 
       // UPDATE (all later saves)
-      // await updateNote(noteId, payload);
+      const updatePayload = {
+        ...payload,
+        "note_id": noteId
+      }
+      await updateNote(updatePayload);
   }
 
   const pageContent = [
-    { Component: SubHeader, props: {back: true, isWriting: isWriting, onLike: "s", onSave: saveNote} },
+    { Component: SubHeader, props: {back: true, isWriting: isWriting, setIsWriting: setIsWriting, onLike: "s", onSave: saveNote} },
     { Component: Notepad, 
       props: { title: title, setTitle: setTitle, body: body, setBody: setBody, setIsWriting: setIsWriting }
     }

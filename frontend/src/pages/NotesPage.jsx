@@ -14,7 +14,6 @@ export default function NotesPage({ deleted = false }) {
     const { notes, deletedNotes} = useNoteContext();
 
     const noteData = !deleted ? notes : deletedNotes;
-    console.log(notes);
     
     const deletedPageSubtitle = deletedNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
     const notesPageSubtitle = notes.length === 0 ? "No notes here" : "Ideas live here.";

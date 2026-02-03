@@ -15,7 +15,7 @@ function App() {
     <BrowserRouter>
         <DeviceFrame>
             <Routes>
-              <Route path="/" element={<RegistrationPage />} />
+              <Route path="/" element={<LaunchPage />} />
               <Route path="/login" element={<LogInPage />} />
               <Route path="/register" element={<RegistrationPage />} />
               <Route path="/folders" element={<FoldersPage />} />

@@ -11,7 +11,7 @@ export default function LaunchPage() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate("/folders");
+      navigate("/login");
     }, 2000);
     return () => clearTimeout(timer);
   }, [navigate]);
