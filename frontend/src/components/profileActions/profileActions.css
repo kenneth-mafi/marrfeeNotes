@@ -1,0 +1,33 @@
+.profile-actions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0 1.2rem 2rem;
+}
+
+.profile-action-item {
+  width: 100%;
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  background: #ffffff;
+  color: #1a1a1a;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.profile-action-item:hover {
+  background: #f7f7f9;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+}
+
+.profile-action-item.is-danger {
+  color: #b42318;
+  border-color: rgba(180, 35, 24, 0.2);
+  background: #fff5f5;
+}

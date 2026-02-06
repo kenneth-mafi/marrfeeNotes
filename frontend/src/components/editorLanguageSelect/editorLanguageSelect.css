@@ -1,0 +1,31 @@
+.editor-language-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0 1rem;
+}
+
+.editor-language-label {
+  font-size: 0.85rem;
+  color: #4a4a4a;
+  font-weight: 600;
+}
+
+.editor-language-dropdown {
+  min-width: 150px;
+  border: 1px solid rgba(20, 20, 20, 0.18);
+  background: #ffffff;
+  color: #111111;
+  padding: 0.45rem 0.6rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.editor-language-dropdown:focus {
+  outline: none;
+  border-color: rgba(20, 20, 20, 0.35);
+  box-shadow: 0 0 0 2px rgba(20, 20, 20, 0.08);
+}

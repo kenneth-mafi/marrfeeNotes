@@ -1,0 +1,33 @@
+.action-menu {
+  position: absolute;
+  right: 1.6rem;
+  bottom: 7.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.55rem;
+  min-width: 170px;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+  z-index: 12;
+}
+
+.action-menu-item {
+  width: 100%;
+  border: none;
+  background: #f7f7f9;
+  color: #1f1f1f;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.action-menu-item:hover {
+  background: #efeff4;
+  transform: translateY(-1px);
+}

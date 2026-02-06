@@ -1,15 +1,29 @@
-import './iconButtons.css';
-import heartIcon from '../../../assets/heart.png'
-import heartFilledIcon from '../../../assets/heart-filled.png'
-import { useState } from 'react';
+import "./iconButtons.css";
+import heartIcon from "../../../assets/heart.png";
+import heartFilledIcon from "../../../assets/heart-filled.png";
+import { useState } from "react";
 
-export const IconButton = ({ icon, onClick, className }) => {
+export const IconButton = ({ icon, onClick, className = "", children, ariaLabel }) => {
+  const buttonClassName = ["icon-button", className].filter(Boolean).join(" ");
+
   return (
-    <button type="button" onClick={onClick} className={`icon-button`}>
-      <img src={icon} alt="button" className="icon-button-icon" />
+    <button
+      type="button"
+      onClick={onClick}
+      className={buttonClassName}
+      aria-label={ariaLabel}
+    >
+      {children ||
+        (icon ? (
+          <img
+            src={icon}
+            alt={ariaLabel || "button"}
+            className="icon-button-icon"
+          />
+        ) : null)}
     </button>
-  )
-}
+  );
+};
 
 export const TextButton = ({ text, onClick }) => {
   return (
@@ -43,7 +57,7 @@ export const LikeButton = ({ onClick }) => {
         className="icon-button-icon"
       />
     </button>
-  )
-}
+  );
+};
 
 

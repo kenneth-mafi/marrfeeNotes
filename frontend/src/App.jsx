@@ -4,10 +4,10 @@ import LaunchPage from "./pages/LaunchPage";
 import FoldersPage from "./pages/FoldersPage";
 import NotesPage from "./pages/NotesPage";
 import NoteEditorPage from "./pages/NoteEditorPage";
-import SignInPage from "./pages/SignInPage";
-import SignUpPage from "./pages/SignUpPage";
 import LogInPage from "./pages/LogInPage/LogInPage";
 import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import ProfilePage from "./pages/ProfilePage";
+import CodeWorkbenchPage from "./pages/CodeWorkbenchPage";
 
 function App() {
   return (
@@ -21,8 +21,8 @@ function App() {
               <Route path="/notes" element={<NotesPage />} />
               <Route path="/deleted" element={<NotesPage deleted />} />
               <Route path="/note/:id" element={<NoteEditorPage />} />
-              <Route path="/signin" element={<SignInPage />} />
-              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="profile" element={<ProfilePage />} />
+              <Route path="workbench" element={<CodeWorkbenchPage />} />
             </Routes>
         </DeviceFrame>
     </BrowserRouter>

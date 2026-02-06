@@ -4,6 +4,8 @@ import { SubHeader } from "../components/subheader/Subheader";
 import Notepad from "../components/Notepad/Notepad";
 import MainPageFrame from "../components/Frames/PageFrames/mainPageFrame/MainPageFrame";
 import { useNoteContext } from "../hooks/useContext";
+import EditorLanguageSelect from "../components/editorLanguageSelect/EditorLanguageSelect";
+import "./noteEditorPage.css";
 
 export default function NoteEditorPage() {
   const { id } = useParams();
@@ -19,6 +21,14 @@ export default function NoteEditorPage() {
   const [body, setBody] = useState(note?.body || "");
   const [isWriting, setIsWriting] = useState(false)
   const [noteId, setNoteId] = useState(id === "new" ? null : id);
+  const [language, setLanguage] = useState("text");
+
+  const languageOptions = [
+    { value: "text", label: "Text" },
+    { value: "sql", label: "SQL" },
+    { value: "javascript", label: "JavaScript" },
+    { value: "python", label: "Python" },
+  ];
 
   const saveNote = async () => {
      if (!(title.trim() || body.trim())) return;
@@ -46,10 +56,27 @@ export default function NoteEditorPage() {
 
   const pageContent = [
     { Component: SubHeader, props: {back: true, isWriting: isWriting, setIsWriting: setIsWriting, onLike: "s", onSave: saveNote} },
+    {
+      Component: EditorLanguageSelect,
+      props: {
+        id: "note-language",
+        label: "Note type",
+        value: language,
+        onChange: (event) => setLanguage(event.target.value),
+        options: languageOptions,
+      },
+    },
     { Component: Notepad, 
-      props: { title: title, setTitle: setTitle, body: body, setBody: setBody, setIsWriting: setIsWriting }
+      props: {
+        title: title,
+        setTitle: setTitle,
+        body: body,
+        setBody: setBody,
+        setIsWriting: setIsWriting,
+        bodyLanguage: language,
+      }
     }
   ]
 
-  return <MainPageFrame components={pageContent} className="page" effect="slideInRight"/>
+  return <MainPageFrame components={pageContent} className="page note-editor-page" effect="slideInRight"/>
 }

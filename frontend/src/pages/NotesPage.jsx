@@ -9,6 +9,7 @@ import ScrollArea from "../components/ScrollArea/ScrollArea";
 import { useNoteContext } from "../hooks/useContext";
 import { useEffect, useState } from "react";
 import { filterNotesBy } from "../utils";
+import ActionMenu from "../components/actionMenu/ActionMenu";
 
 export default function NotesPage({ deleted = false }) {
     const navigate = useNavigate();
@@ -18,7 +19,8 @@ export default function NotesPage({ deleted = false }) {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [groupByDate, setGroupByDate] = useState(false);
     const [selectMode, setSelectMode] = useState(false);
-    const [searchContent, setSearchContent] = useState("")
+    const [searchContent, setSearchContent] = useState("");
+    const [showActionMenu, setShowActionMenu] = useState(false);
 
     const { notes, deletedNotes} = useNoteContext();
     
@@ -37,7 +39,17 @@ export default function NotesPage({ deleted = false }) {
 
 
     const handleNewNote = () => {
+      setShowActionMenu(false);
       navigate("/note/new")
+    };
+
+    const handleCodeWorkbench = () => {
+      setShowActionMenu(false);
+      navigate("../workbench");
+    };
+
+    const toggleActionMenu = () => {
+      setShowActionMenu((prev) => !prev);
     };
 
     const toggleFilterMenu = () => {
@@ -60,6 +72,11 @@ export default function NotesPage({ deleted = false }) {
     const toggleSelectMode = () => {
       setSelectMode((prev) => !prev);
     };
+
+    const actionMenuItems = [
+      { id: "new-note", label: "New Note", onClick: handleNewNote },
+      { id: "code-workbench", label: "Code Workbench", onClick: handleCodeWorkbench },
+    ];
 
     const pageContent = [
       { 
@@ -94,7 +111,8 @@ export default function NotesPage({ deleted = false }) {
           </ScrollArea>
         )
       },
-      { Component: BottomNav, props: {onClick: handleNewNote, show: showBottomNav} }
+      { Component: ActionMenu, props: { open: showActionMenu && showBottomNav, actions: actionMenuItems } },
+      { Component: BottomNav, props: {onClick: toggleActionMenu, show: showBottomNav} }
     ]
     return <MainPageFrame components={pageContent} className="page notes-page" effect="slideInLeft"/>
 }
