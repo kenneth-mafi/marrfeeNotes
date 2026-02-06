@@ -39,33 +39,49 @@ React 19, Vite, React Router, Flask, PostgreSQL (psycopg), JWT (flask‑jwt‑ex
 6. **PostgreSQL schema + indexes** optimized for active/deleted note queries.
 7. **React context‑based state** for auth + note data fetching and caching.
 8. **API client abstraction** with centralized request handling and auth headers.
+9. **Code notes + workbench** with SQL/JavaScript/Python editor modes.
 
-**Setup**
-1. Create environment files:
+**Local setup (run on your machine)**
+**Prerequisites**
+- Node.js 18+ and npm
+- Python 3.10+
+- PostgreSQL 14+
+
+**Database setup**
+1. Create a database (example: `marrfee_notes`).
+2. Create a schema named `notes` in that database (required by the SQL):
+   ```sql
+   CREATE SCHEMA IF NOT EXISTS notes;
+   ```
+3. Build your Postgres connection string:
+   `postgresql://USER:PASSWORD@localhost:5432/marrfee_notes`
+
+**Environment variables**
+1. Create these files:
    - `backend/.env`
    - `frontend/.env`
-2. Required environment variables:
+2. Add the required values:
    - `MARRFEE_OS_DB_URI` = Postgres connection string
    - `JWT_SECRET_KEY` = secret used to sign JWTs
    - `PORT` = backend port (default `4000`)
-   - `VITE_NOTED_API_URL` = backend URL (ex: `http://localhost:4000`)
+   - `VITE_NOTED_API_URL` = backend URL (example: `http://localhost:4000`)
 
 **Run the project**
-1. Backend:
+1. Backend (terminal 1):
    ```bash
    cd backend
    python -m venv .venv
-   . .venv/bin/activate  # or .venv\Scripts\activate on Windows
+   . .venv/bin/activate  # Windows: .venv\Scripts\activate
    pip install -r requirements.txt
    python main.py
    ```
-2. Frontend (separate terminal):
+2. Frontend (terminal 2):
    ```bash
    cd frontend
    npm install
    npm run dev
    ```
-   This runs both Vite and the backend via the `concurrently` script. Make sure `PORT` and `VITE_NOTED_API_URL` match.
 
 **Notes**
-- The backend auto‑creates the schema on boot (`main.py -> create_schema()`).
+- The backend auto‑creates tables and indexes on boot (`main.py -> create_schema()`).
+- If you prefer a single command for dev, you can run `npm run dev` inside `frontend/` after your backend deps are installed, but it uses your system `python` (not the venv).

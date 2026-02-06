@@ -27,7 +27,12 @@ def get_active_notes():
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
-    sql = "SELECT note_id, title, body, updated_at, created_at FROM notes.notes WHERE user_id = %s AND deleted_at IS NULL ORDER BY updated_at DESC"
+    sql = """
+        SELECT note_id, title, body, updated_at, created_at, is_code
+        FROM notes.notes
+        WHERE user_id = %s AND deleted_at IS NULL
+        ORDER BY updated_at DESC
+    """
     rows = execute_sql(sql, (user_id,))
     notes = [
         { 
@@ -35,7 +40,8 @@ def get_active_notes():
             "title": r[1], 
             "body": r[2], 
             "updatedAt": r[3].isoformat()[0:10], 
-            "createdAt": r[4].isoformat()[0:10] 
+            "createdAt": r[4].isoformat()[0:10],
+            "isCode": r[5],
         }
         for r in rows
     ]
@@ -50,7 +56,12 @@ def get_deleted_notes():
     if not user_id:
         return jsonify({"success": False, "error": "Missing user_id"}), 400    
     
-    sql = "SELECT note_id, title, body, updated_at, created_at, deleted_at FROM notes.notes WHERE user_id = %s AND deleted_at IS NOT NULL ORDER BY updated_at DESC"
+    sql = """
+        SELECT note_id, title, body, updated_at, created_at, deleted_at, is_code
+        FROM notes.notes
+        WHERE user_id = %s AND deleted_at IS NOT NULL
+        ORDER BY updated_at DESC
+    """
     rows = execute_sql(sql, (user_id,))
     notes = [
         {
@@ -59,7 +70,9 @@ def get_deleted_notes():
             "body": r[2], 
             "deletedAt": r[3].isoformat()[0:10], 
             "createdAt": r[4].isoformat()[0:10], 
-            "deletedAt": r[5].isoformat()[0:10]}
+            "deletedAt": r[5].isoformat()[0:10],
+            "isCode": r[6],
+        }
         for r in rows
     ]
     return jsonify({"success": True, "rows": notes}), 200
@@ -77,13 +90,14 @@ def create_note():
     note_id = str(uuid.uuid4())
     title = data.get("title", "")
     body = data.get("body", "")
+    is_code = bool(data.get("is_code", False))
 
     sql = """
-        INSERT INTO notes.notes (note_id, user_id, title, body, created_at, updated_at, deleted_at)
-        VALUES (%s, %s, %s, %s, NOW(), NOW(), NULL)
+        INSERT INTO notes.notes (note_id, user_id, title, body, created_at, updated_at, deleted_at, is_code)
+        VALUES (%s, %s, %s, %s, NOW(), NOW(), NULL, %s)
         RETURNING note_id
     """
-    params = (note_id, user_id, title, body)
+    params = (note_id, user_id, title, body, is_code)
 
     try:
         row = execute_sql(sql, params, fetch="one")
@@ -196,33 +210,50 @@ def update_note():
     # allow partial updates
     title = data.get("title")
     body = data.get("body")
-    if title is None and body is None:
-        return jsonify({"success": False, "error": "Provide title and/or body"}), 400
+    is_code = data.get("is_code")
+    if title is None and body is None and is_code is None:
+        return jsonify({"success": False, "error": "Provide title, body, and/or is_code"}), 400
 
     
     # Build dynamic SET safely (still parameterized)
     set_parts = []
     params = []
+    change_checks = []
+    change_params = []
 
     if title is not None:
         set_parts.append("title = %s")
         params.append(title)
+        change_checks.append("title IS DISTINCT FROM %s")
+        change_params.append(title)
 
     if body is not None:
         set_parts.append("body = %s")
         params.append(body)
+        change_checks.append("body IS DISTINCT FROM %s")
+        change_params.append(body)
+
+    if is_code is not None:
+        set_parts.append("is_code = %s")
+        params.append(bool(is_code))
+        change_checks.append("is_code IS DISTINCT FROM %s")
+        change_params.append(bool(is_code))
 
     set_parts.append("updated_at = NOW()")
+
+    change_clause = ""
+    if change_checks:
+        change_clause = f"AND ({' OR '.join(change_checks)})"
 
     sql = f"""
         UPDATE notes.notes
         SET {", ".join(set_parts)}
         WHERE user_id = %s AND note_id = %s AND deleted_at IS NULL
-        AND (title IS DISTINCT FROM %s OR body IS DISTINCT FROM %s)
+        {change_clause}
         RETURNING note_id
     """
     params.extend([user_id, note_id])
-    params.extend([title, body])
+    params.extend(change_params)
 
     try:
         row = execute_sql(sql, tuple(params), fetch="one")

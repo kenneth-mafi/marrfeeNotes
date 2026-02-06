@@ -7,6 +7,8 @@ export default function FilterMenu({
   onClick,
   sortValue = "updatedAt",
   onSortChange,
+  typeValue = "all",
+  onTypeChange,
   onSelectNotes,
   selectMode = false,
   groupByDate = false,
@@ -19,6 +21,18 @@ export default function FilterMenu({
         <button type="button" className="filter-menu-btn" onClick={onSelectNotes}>
           {selectMode ? "Cancel selection" : "Select notes"}
         </button>
+        <div className="filter-menu-row">
+          <span className="filter-menu-label">Type</span>
+          <select
+            className="filter-menu-select"
+            value={typeValue}
+            onChange={onTypeChange}
+          >
+            <option value="all">All</option>
+            <option value="text">Text</option>
+            <option value="code">Code</option>
+          </select>
+        </div>
         <div className="filter-menu-row">
           <span className="filter-menu-label">Sort by</span>
           <select

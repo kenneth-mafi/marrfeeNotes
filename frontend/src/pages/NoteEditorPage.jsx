@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { SubHeader } from "../components/subheader/Subheader";
 import Notepad from "../components/Notepad/Notepad";
@@ -23,6 +23,12 @@ export default function NoteEditorPage() {
   const [noteId, setNoteId] = useState(id === "new" ? null : id);
   const [language, setLanguage] = useState("text");
 
+  useEffect(() => {
+    if (note?.isCode) {
+      setLanguage((prev) => (prev === "text" ? "sql" : prev));
+    }
+  }, [note?.isCode]);
+
   const languageOptions = [
     { value: "text", label: "Text" },
     { value: "sql", label: "SQL" },
@@ -31,12 +37,17 @@ export default function NoteEditorPage() {
   ];
 
   const saveNote = async () => {
-     if (!(title.trim() || body.trim())) return;
+      const trimmedTitle = title.trim();
+      const trimmedBody = body.trim();
+      const isCodeNote = language !== "text";
 
+      if (isCodeNote && !trimmedBody) return;
+      if (!isCodeNote && !(trimmedTitle || trimmedBody)) return;
 
       const payload = {
-        title: title.trim() || "No Title",
-        body: body.trim() || "No additional text",
+        title: trimmedTitle || "No Title",
+        body: trimmedBody || "No additional text",
+        is_code: isCodeNote,
       };
 
       // CREATE (first save)

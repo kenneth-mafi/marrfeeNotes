@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 import './notecard.css';
 import noteIcon from '../../assets/note.png';
+import programmingIcon from '../../assets/programming.png';
 import { getHighlightedParts } from "../../utils";
 
-export default function NoteCard({ noteId, title, body, updatedAt, searchContent }) {
+export default function NoteCard({ noteId, title, body, updatedAt, searchContent, isCode }) {
   const query = searchContent.trim();
   const parts = getHighlightedParts(body, query)
   const titleParts = getHighlightedParts(title, query)
+  const noteImage = isCode ? programmingIcon : noteIcon;
 
   return (
     <Link className="note-card" to={`/note/${noteId}`}>
       <div className="note-icon-contr">
-        <img src={noteIcon} alt="note" className="note-icon" />
+        <img src={noteImage} alt="note" className="note-icon" />
       </div>
       <div className="note-details-contr">
 

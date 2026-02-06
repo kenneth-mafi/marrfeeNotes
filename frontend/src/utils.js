@@ -1,11 +1,20 @@
 
-export const filterNotesBy = (notes, filter, searchContent="") => {
+export const filterNotesBy = (notes, filter, searchContent = "", typeFilter = "all") => {
     if (!Array.isArray(notes)) return [];
-    const allowedFilters = ["updatedAt", "createdAt", "title", "search"]
-    if (!allowedFilters.includes(filter)) return [...notes];
-    if (filter === "search" && !searchContent.trim()) return [...notes];
+    const allowedFilters = ["updatedAt", "createdAt", "title", "search"];
 
-    const noteCopy = [...notes];
+    let noteCopy = [...notes];
+
+    if (typeFilter === "code") {
+        noteCopy = noteCopy.filter(note => note?.isCode);
+    }
+
+    if (typeFilter === "text") {
+        noteCopy = noteCopy.filter(note => !note?.isCode);
+    }
+
+    if (!allowedFilters.includes(filter)) return noteCopy;
+    if (filter === "search" && !searchContent.trim()) return noteCopy;
 
     if (filter === "updatedAt" || filter === "createdAt") {
         return noteCopy.sort((a, b) => new Date(b[filter]) - new Date(a[filter]));

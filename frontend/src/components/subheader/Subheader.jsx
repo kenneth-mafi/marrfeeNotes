@@ -28,6 +28,7 @@ const PlayIcon = ({ className = "" }) => (
 
 export const SubHeader = ({ 
   back=false, 
+  onBack,
   exit=false,
   onExit,
   play=false,
@@ -45,6 +46,8 @@ export const SubHeader = ({
   onToggleFilter,
   sortValue="updatedAt",
   onSortChange,
+  typeValue="all",
+  onTypeChange,
   onSelectNotes,
   selectMode=false,
   groupByDate=false,
@@ -63,6 +66,10 @@ export const SubHeader = ({
   }
 
   const goBack = () => { 
+    if (onBack) {
+      onBack();
+      return;
+    }
     navigate(-1) 
     handleSave()
   }
@@ -99,6 +106,8 @@ export const SubHeader = ({
             onClick={onClick}
             sortValue={sortValue}
             onSortChange={onSortChange}
+            typeValue={typeValue}
+            onTypeChange={onTypeChange}
             onSelectNotes={onSelectNotes}
             selectMode={selectMode}
             groupByDate={groupByDate}

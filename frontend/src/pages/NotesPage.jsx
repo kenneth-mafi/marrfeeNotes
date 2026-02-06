@@ -14,8 +14,10 @@ import ActionMenu from "../components/actionMenu/ActionMenu";
 export default function NotesPage({ deleted = false }) {
     const navigate = useNavigate();
     const currentFilter = localStorage.getItem("filter") || "updatedAt";
+    const currentTypeFilter = localStorage.getItem("typeFilter") || "all";
 
     const [filter, setFilter] = useState(currentFilter);
+    const [typeFilter, setTypeFilter] = useState(currentTypeFilter);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [groupByDate, setGroupByDate] = useState(false);
     const [selectMode, setSelectMode] = useState(false);
@@ -24,7 +26,9 @@ export default function NotesPage({ deleted = false }) {
 
     const { notes, deletedNotes} = useNoteContext();
     
-    const noteData = !deleted ? filterNotesBy(notes, filter, searchContent) : deletedNotes;
+    const noteData = !deleted
+      ? filterNotesBy(notes, filter, searchContent, typeFilter)
+      : deletedNotes;
     
     const deletedPageSubtitle = deletedNotes.length === 0 ? "No notes here" : "Not gone forever… yet.";
     const notesPageSubtitle = notes.length === 0 ? "No notes here" : "Ideas live here.";
@@ -36,6 +40,10 @@ export default function NotesPage({ deleted = false }) {
     useEffect(() => {
       localStorage.setItem("filter", filter);
     }, [filter]);
+
+    useEffect(() => {
+      localStorage.setItem("typeFilter", typeFilter);
+    }, [typeFilter]);
 
 
     const handleNewNote = () => {
@@ -60,6 +68,10 @@ export default function NotesPage({ deleted = false }) {
       setFilter(event.target.value);
     };
 
+    const handleTypeChange = (event) => {
+      setTypeFilter(event.target.value);
+    };
+
     const handleSearchChange = (event) => {
       setFilter("search")
       setSearchContent(event.target.value);
@@ -82,7 +94,8 @@ export default function NotesPage({ deleted = false }) {
       { 
         Component: SubHeader, 
         props: { 
-          back: true, 
+          back: true,
+          onBack: () => navigate("/folders"),
           onSearch: "s", 
           filter: true, 
           deletedPage: deleted,
@@ -90,6 +103,8 @@ export default function NotesPage({ deleted = false }) {
           onToggleFilter: toggleFilterMenu,
           sortValue: filter,
           onSortChange: handleSortChange,
+          typeValue: typeFilter,
+          onTypeChange: handleTypeChange,
           onSelectNotes: toggleSelectMode,
           selectMode: selectMode,
           groupByDate: groupByDate,
